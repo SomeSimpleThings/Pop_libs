@@ -7,8 +7,9 @@
 
     <TextView
         android:id="@+id/user_login"
-        android:textSize="320sp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:gravity="center"
+        tools:text="user" />
 
 </FrameLayout>

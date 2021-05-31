@@ -15,18 +15,17 @@ private const val ARG_USER_PARCELABLE = "user_parcelable"
 
 class UserDetailFragment : MvpAppCompatFragment(), UserDetailView, BackButtonListener {
     private var viewBinding: FragmentUserDetailBinding? = null
-    private var user: GithubUser? = null
     val presenter: UserDetailPresenter by moxyPresenter {
         UserDetailPresenter(
-            PopLibsApplication.INSTANCE.router,
-            user
+            PopLibsApplication.INSTANCE.router
         )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            user = it.getParcelable(ARG_USER_PARCELABLE)
+            val user: GithubUser? = it.getParcelable(ARG_USER_PARCELABLE)
+            user?.let { user1 -> presenter.showUser(user1) }
         }
     }
 
