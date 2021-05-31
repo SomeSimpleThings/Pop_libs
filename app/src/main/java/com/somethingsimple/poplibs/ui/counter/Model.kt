@@ -1,4 +1,4 @@
-package com.somethingsimple.poplibs
+package com.somethingsimple.poplibs.ui.counter
 
 class Model {
     val counters = mutableListOf(0, 0, 0)

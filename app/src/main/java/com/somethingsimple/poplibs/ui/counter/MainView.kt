@@ -1,4 +1,4 @@
-package com.somethingsimple.poplibs
+package com.somethingsimple.poplibs.ui.counter
 
 interface MainView {
     fun setButton1Text(text: String, color: Int)

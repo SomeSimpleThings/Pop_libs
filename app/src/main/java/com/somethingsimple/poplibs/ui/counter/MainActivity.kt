@@ -1,4 +1,4 @@
-package com.somethingsimple.poplibs
+package com.somethingsimple.poplibs.ui.counter
 
 import android.graphics.Color.CYAN
 import android.graphics.Color.RED

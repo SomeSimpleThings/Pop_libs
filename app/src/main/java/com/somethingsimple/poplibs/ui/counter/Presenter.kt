@@ -1,4 +1,4 @@
-package com.somethingsimple.poplibs
+package com.somethingsimple.poplibs.ui.counter
 
 class Presenter(val view: MainView, val model: Model) {
 
