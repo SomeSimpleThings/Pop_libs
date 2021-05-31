@@ -1,7 +1,7 @@
 package com.somethingsimple.poplibs.ui.main
 
 import com.github.terrakok.cicerone.Router
-import com.somethingsimple.poplibs.ui.IScreens
+import com.somethingsimple.poplibs.ui.users.IScreens
 import moxy.MvpPresenter
 
 class MainPresenter(val router: Router, val screens: IScreens) : MvpPresenter<MainView>() {

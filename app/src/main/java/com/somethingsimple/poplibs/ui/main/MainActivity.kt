@@ -5,8 +5,8 @@ import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.somethingsimple.poplibs.PopLibsApplication
 import com.somethingsimple.poplibs.R
 import com.somethingsimple.poplibs.databinding.ActivityMainBinding
-import com.somethingsimple.poplibs.ui.AndroidScreens
 import com.somethingsimple.poplibs.ui.common.BackButtonListener
+import com.somethingsimple.poplibs.ui.users.AndroidScreens
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
 
@@ -20,12 +20,12 @@ class MainActivity : MvpAppCompatActivity(), MainView {
             AndroidScreens()
         )
     }
-    private var vb: ActivityMainBinding? = null
+    private var binding: ActivityMainBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        vb = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(vb?.root)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding?.root)
     }
 
     override fun onResumeFragments() {
