@@ -58,6 +58,6 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         adapter?.notifyDataSetChanged()
     }
 
-    override fun backPressed()  = presenter.backPressed()
+    override fun backPressed() = presenter.backPressed()
 
 }
