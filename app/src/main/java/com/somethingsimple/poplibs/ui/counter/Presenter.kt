@@ -1,17 +1,31 @@
 package com.somethingsimple.poplibs.ui.counter
 
-class Presenter(val view: MainView, val model: Model) {
+import com.somethingsimple.poplibs.data.model.CounterModel
+import moxy.MvpPresenter
 
-    fun counterClick(id: Int) {
-        model.increment(id).let {
-            val color = if (it > 3) RED else WHITE
-            when (id) {
-                0 -> view.setButton1Text("$it", color)
-                1 -> view.setButton2Text("$it", color)
-                2 -> view.setButton3Text("$it", color)
-            }
+class Presenter(val model: CounterModel) : MvpPresenter<CounterView>() {
+
+    fun counterOneClick() {
+        getNextValue(0).apply {
+            viewState.setButtonOneText(this.toString(), getColor(this))
         }
     }
+
+    fun counterTwoClick() {
+        getNextValue(1).apply {
+            viewState.setButtonTwoText(this.toString(), getColor(this))
+        }
+    }
+
+    fun counterThreeClick() {
+        getNextValue(2).apply {
+            viewState.setButtonThreeText(this.toString(), getColor(this))
+        }
+    }
+
+    private fun getColor(counter: Int) = if (counter > 3) RED else WHITE
+
+    private fun getNextValue(counterId: Int): Int = model.increment(counterId)
 
     companion object {
         private const val RED = 0
