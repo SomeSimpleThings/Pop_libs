@@ -17,7 +17,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
     private var viewBinding: FragmentGithubUsersBinding? = null
     private var adapter: GithubUsersAdapter? = null
-    val presenter: GithubUsersPresenter by moxyPresenter {
+    private val presenter: GithubUsersPresenter by moxyPresenter {
         GithubUsersPresenter(
             UsersRepoFactory.create(),
             PopLibsApplication.INSTANCE.router
