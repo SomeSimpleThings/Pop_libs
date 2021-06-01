@@ -1,7 +1,7 @@
-package com.somethingsimple.poplibs
+package com.somethingsimple.poplibs.data.model
 
-class Model {
-    val counters = mutableListOf(0, 0, 0)
+class CounterModel {
+    private val counters = mutableListOf(0, 0, 0)
 
     fun increment(index: Int): Int = ++counters[index]
 
