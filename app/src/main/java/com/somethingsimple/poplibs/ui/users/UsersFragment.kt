@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.somethingsimple.poplibs.PopLibsApplication.Navigation.router
 import com.somethingsimple.poplibs.data.UsersRepoFactory
 import com.somethingsimple.poplibs.databinding.FragmentGithubUsersBinding
+import com.somethingsimple.poplibs.ui.PopLibsAppScreens
 import com.somethingsimple.poplibs.ui.common.BackButtonListener
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
@@ -57,6 +58,10 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
     override fun updateList() {
         adapter?.notifyDataSetChanged()
+    }
+
+    override fun addItemToList(position: Int) {
+        adapter?.notifyItemInserted(position)
     }
 
     override fun backPressed() = presenter.backPressed()

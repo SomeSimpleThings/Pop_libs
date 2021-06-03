@@ -6,7 +6,6 @@ import com.somethingsimple.poplibs.PopLibsApplication.Navigation.navigatorHolder
 import com.somethingsimple.poplibs.PopLibsApplication.Navigation.router
 import com.somethingsimple.poplibs.R
 import com.somethingsimple.poplibs.ui.common.BackButtonListener
-import com.somethingsimple.poplibs.ui.users.PopLibsAppScreens
 import moxy.MvpAppCompatActivity
 
 class MainActivity : MvpAppCompatActivity(R.layout.activity_main) {
