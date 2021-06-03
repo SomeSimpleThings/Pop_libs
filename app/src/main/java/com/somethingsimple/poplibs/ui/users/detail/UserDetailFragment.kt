@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.somethingsimple.poplibs.PopLibsApplication
+import com.somethingsimple.poplibs.PopLibsApplication.Navigation.router
 import com.somethingsimple.poplibs.data.model.GithubUser
 import com.somethingsimple.poplibs.databinding.FragmentUserDetailBinding
 import com.somethingsimple.poplibs.ui.common.BackButtonListener
@@ -17,7 +17,7 @@ class UserDetailFragment : MvpAppCompatFragment(), UserDetailView, BackButtonLis
     private var viewBinding: FragmentUserDetailBinding? = null
     val presenter: UserDetailPresenter by moxyPresenter {
         UserDetailPresenter(
-            PopLibsApplication.INSTANCE.router
+            router
         )
     }
 

@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.somethingsimple.poplibs.PopLibsApplication
+import com.somethingsimple.poplibs.PopLibsApplication.Navigation.router
 import com.somethingsimple.poplibs.data.UsersRepoFactory
 import com.somethingsimple.poplibs.databinding.FragmentGithubUsersBinding
 import com.somethingsimple.poplibs.ui.common.BackButtonListener
@@ -20,7 +20,8 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     private val presenter: GithubUsersPresenter by moxyPresenter {
         GithubUsersPresenter(
             UsersRepoFactory.create(),
-            PopLibsApplication.INSTANCE.router
+            router,
+            PopLibsAppScreens
         )
     }
 

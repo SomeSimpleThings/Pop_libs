@@ -3,12 +3,13 @@ package com.somethingsimple.poplibs.ui.users
 import com.github.terrakok.cicerone.Router
 import com.somethingsimple.poplibs.data.UsersRepository
 import com.somethingsimple.poplibs.data.model.GithubUser
-import com.somethingsimple.poplibs.ui.users.detail.UserScreen
 import moxy.MvpPresenter
 
 class GithubUsersPresenter(
-    val usersRepo: UsersRepository,
-    val router: Router
+    private val usersRepo: UsersRepository,
+    private val router: Router,
+    private val appScreens: IScreens
+
 ) :
     MvpPresenter<UsersView>() {
     class UsersListPresenter : IUsersListPresenter {
@@ -32,7 +33,7 @@ class GithubUsersPresenter(
 
         usersListPresenter.itemClickListener = { itemView ->
             val user = usersListPresenter.users[itemView.pos]
-            router.navigateTo(UserScreen(user))
+            router.navigateTo(appScreens.userDetails(user))
         }
     }
 
