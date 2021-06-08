@@ -19,7 +19,6 @@ class ImageConverter(private val context: Context) {
 
     fun convertImage(outputFilename: String, quality: Int): Single<ImageToConvert?> =
         getImageInputStreamFromUri()
-            .subscribeOn(Schedulers.io())
             .flatMap {
                 val file = File(
                     context.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
@@ -39,7 +38,7 @@ class ImageConverter(private val context: Context) {
                     mImage
                 )
             }
-            .subscribeOn(Schedulers.computation())
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
     private fun getImageInputStreamFromUri() =
