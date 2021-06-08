@@ -12,4 +12,5 @@ interface ImageConverterView : MvpView {
     fun convert()
     fun showPermissionDenied()
     fun showSelectedImage(uri: Uri)
+    fun showNoImageSelected()
 }

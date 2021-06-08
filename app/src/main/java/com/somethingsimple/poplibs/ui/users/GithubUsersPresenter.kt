@@ -3,6 +3,7 @@ package com.somethingsimple.poplibs.ui.users
 import com.github.terrakok.cicerone.Router
 import com.somethingsimple.poplibs.data.UsersRepository
 import com.somethingsimple.poplibs.data.model.GithubUser
+import com.somethingsimple.poplibs.exceprion.SomethingLoadingException
 import com.somethingsimple.poplibs.ui.IScreens
 import moxy.MvpPresenter
 
@@ -48,12 +49,13 @@ class GithubUsersPresenter(
     }
 
     private fun onUserLoadError(throwable: Throwable?) {
-        TODO("Not yet implemented")
+        if (throwable is SomethingLoadingException)
+            viewState.loadingError(throwable.localizedMessage)
     }
 
-    private fun onUserLoaded(user: GithubUser) {
-        usersListPresenter.users.add(user)
-        viewState.addItemToList(usersListPresenter.users.size)
+    private fun onUserLoaded(users: List<GithubUser>) {
+        usersListPresenter.users.addAll(users)
+        viewState.updateList()
     }
 
     fun backPressed(): Boolean {

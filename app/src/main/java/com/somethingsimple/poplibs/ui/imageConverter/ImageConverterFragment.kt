@@ -60,18 +60,13 @@ class ImageConverterFragment : MvpAppCompatFragment(), ImageConverterView, BackB
                         presenter.chooseImage()
                     }
                     shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> {
-                        // In an educational UI, explain to the user why your app requires this
-                        // permission for a specific feature to behave as expected. In this UI,
-                        // include a "cancel" or "no thanks" button that allows the user to
-                        // continue using your app without granting the permission.
-//                    showInContextUI(...)
                     }
                     else -> {
                         requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     }
                 }
-                imageConverter.setOnClickListener { presenter.convertImage() }
             }
+            imageConverter.setOnClickListener { presenter.convertImage() }
         }
     }
 
@@ -90,16 +85,15 @@ class ImageConverterFragment : MvpAppCompatFragment(), ImageConverterView, BackB
     }
 
     override fun convert() {
-        TODO("Not yet implemented")
+
     }
 
     override fun showPermissionDenied() {
-        AlertDialog.Builder(requireContext())
-            .setTitle(getString(R.string.perms_not_granted))
-            .setMessage(getString(R.string.need_perms))
-            .setPositiveButton(getString(R.string.ok)) { _, _ -> }
-            .create()
-            .show()
+        showDialog(getString(R.string.perms_not_granted), getString(R.string.need_perms))
+    }
+
+    override fun showNoImageSelected() {
+        showDialog(getString(R.string.image_not_selected), getString(R.string.please_select))
     }
 
     override fun showSelectedImage(uri: Uri) {
@@ -107,6 +101,15 @@ class ImageConverterFragment : MvpAppCompatFragment(), ImageConverterView, BackB
     }
 
     override fun backPressed(): Boolean = presenter.backPressed()
+
+    private fun showDialog(title: String, message: String) {
+        AlertDialog.Builder(requireContext())
+            .setTitle(title)
+            .setMessage(message)
+            .setPositiveButton(getString(R.string.ok)) { _, _ -> }
+            .create()
+            .show()
+    }
 
     companion object {
         @JvmStatic

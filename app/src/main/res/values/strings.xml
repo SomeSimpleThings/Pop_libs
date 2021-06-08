@@ -11,4 +11,6 @@
     <string name="perms_not_granted">Permissions not granted</string>
     <string name="need_perms">Write storage needed</string>
     <string name="ok">OK</string>
+    <string name="image_not_selected">Image not selected</string>
+    <string name="please_select">Please, select an image in .jpg format</string>
 </resources>

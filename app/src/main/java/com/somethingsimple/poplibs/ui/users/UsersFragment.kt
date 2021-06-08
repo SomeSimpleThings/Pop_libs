@@ -64,6 +64,10 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         adapter?.notifyItemInserted(position)
     }
 
+    override fun loadingError(text: String) {
+        TODO("Not yet implemented")
+    }
+
     override fun backPressed() = presenter.backPressed()
 
 }

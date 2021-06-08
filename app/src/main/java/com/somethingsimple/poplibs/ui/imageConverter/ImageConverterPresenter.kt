@@ -8,17 +8,22 @@ class ImageConverterPresenter(
     private val router: Router
 ) : MvpPresenter<ImageConverterView>() {
 
+    private var mUri: Uri? = null
 
     fun chooseImage() {
         viewState.selectImage()
     }
 
     fun convertImage() {
-        viewState.convert()
+        mUri?.let {
+            viewState.convert()
+        }
+            ?: viewState.showNoImageSelected()
     }
 
     fun backPressed(): Boolean {
         router.exit()
+        mUri = null
         return true
     }
 
@@ -27,6 +32,7 @@ class ImageConverterPresenter(
     }
 
     fun imageSelected(uri: Uri) {
+        mUri = uri
         viewState.showSelectedImage(uri)
     }
 }
