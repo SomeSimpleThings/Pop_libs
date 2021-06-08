@@ -1,14 +1,20 @@
 package com.somethingsimple.poplibs.data
 
 import com.somethingsimple.poplibs.data.model.GithubUser
+import io.reactivex.rxjava3.annotations.NonNull
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
 
 class GithubUsersRepoMocked(private val users: List<GithubUser>) : UsersRepository {
-    override fun fetchUsers(): List<GithubUser> {
-        return users
+    override fun fetchUsers(): @NonNull Observable<GithubUser> {
+        return Observable.fromIterable(users)
     }
 
-    override fun fetchUserById(userId: String): GithubUser? {
-        return users.firstOrNull { githubUser -> githubUser.id == userId }
+    override fun fetchUserById(userId: String): @NonNull Single<GithubUser> {
+        return Observable
+            .fromIterable(users)
+            .filter { githubUser -> githubUser.id == userId }
+            .singleOrError()
     }
 }
 

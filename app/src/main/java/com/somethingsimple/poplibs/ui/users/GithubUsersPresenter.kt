@@ -3,12 +3,14 @@ package com.somethingsimple.poplibs.ui.users
 import com.github.terrakok.cicerone.Router
 import com.somethingsimple.poplibs.data.UsersRepository
 import com.somethingsimple.poplibs.data.model.GithubUser
-import com.somethingsimple.poplibs.ui.users.detail.UserScreen
+import com.somethingsimple.poplibs.ui.IScreens
 import moxy.MvpPresenter
 
 class GithubUsersPresenter(
-    val usersRepo: UsersRepository,
-    val router: Router
+    private val usersRepo: UsersRepository,
+    private val router: Router,
+    private val appScreens: IScreens
+
 ) :
     MvpPresenter<UsersView>() {
     class UsersListPresenter : IUsersListPresenter {
@@ -18,8 +20,10 @@ class GithubUsersPresenter(
         override fun getCount() = users.size
 
         override fun bindView(view: UserItemView) {
-            val user = users[view.pos]
-            view.setLogin(user.login)
+            users[view.pos].also {
+                view.setLogin(it.login)
+
+            }
         }
     }
 
@@ -32,14 +36,24 @@ class GithubUsersPresenter(
 
         usersListPresenter.itemClickListener = { itemView ->
             val user = usersListPresenter.users[itemView.pos]
-            router.navigateTo(UserScreen(user))
+            router.navigateTo(appScreens.userDetails(user))
         }
     }
 
     private fun loadData() {
-        val users = usersRepo.fetchUsers()
-        usersListPresenter.users.addAll(users)
-        viewState.updateList()
+        usersRepo.fetchUsers().subscribe(
+            ::onUserLoaded,
+            ::onUserLoadError
+        )
+    }
+
+    private fun onUserLoadError(throwable: Throwable?) {
+        TODO("Not yet implemented")
+    }
+
+    private fun onUserLoaded(user: GithubUser) {
+        usersListPresenter.users.add(user)
+        viewState.addItemToList(usersListPresenter.users.size)
     }
 
     fun backPressed(): Boolean {

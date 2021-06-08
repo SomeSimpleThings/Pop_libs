@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.somethingsimple.poplibs.PopLibsApplication
+import android.widget.Toast
+import com.somethingsimple.poplibs.PopLibsApplication.Navigation.router
+import com.somethingsimple.poplibs.data.UsersRepoFactory
 import com.somethingsimple.poplibs.data.model.GithubUser
 import com.somethingsimple.poplibs.databinding.FragmentUserDetailBinding
 import com.somethingsimple.poplibs.ui.common.BackButtonListener
@@ -16,9 +18,7 @@ private const val ARG_USER_PARCELABLE = "user_parcelable"
 class UserDetailFragment : MvpAppCompatFragment(), UserDetailView, BackButtonListener {
     private var viewBinding: FragmentUserDetailBinding? = null
     val presenter: UserDetailPresenter by moxyPresenter {
-        UserDetailPresenter(
-            PopLibsApplication.INSTANCE.router
-        )
+        UserDetailPresenter(UsersRepoFactory.create(), router)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,5 +57,11 @@ class UserDetailFragment : MvpAppCompatFragment(), UserDetailView, BackButtonLis
 
     override fun showUser(user: GithubUser) {
         viewBinding?.userLogin?.text = user.login
+    }
+
+    override fun showUserNotFound() {
+        Toast
+            .makeText(context, "user not found", Toast.LENGTH_SHORT)
+            .show()
     }
 }

@@ -4,9 +4,6 @@ import android.app.Application
 import com.github.terrakok.cicerone.Cicerone
 
 class PopLibsApplication : Application() {
-    private val cicerone = Cicerone.create()
-    val router get() = cicerone.router
-    val navigatorHolder get() = cicerone.getNavigatorHolder()
 
     override fun onCreate() {
         super.onCreate()
@@ -16,5 +13,14 @@ class PopLibsApplication : Application() {
     companion object {
         internal lateinit var INSTANCE: PopLibsApplication
             private set
+    }
+
+    object Navigation {
+
+        private val cicerone by lazy { Cicerone.create() }
+
+        val router get() = cicerone.router
+        val navigatorHolder get() = cicerone.getNavigatorHolder()
+
     }
 }
