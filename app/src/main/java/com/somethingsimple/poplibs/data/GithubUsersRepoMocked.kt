@@ -1,7 +1,7 @@
 package com.somethingsimple.poplibs.data
 
 import com.somethingsimple.poplibs.data.model.GithubUser
-import com.somethingsimple.poplibs.exceprion.UserNotFoundException
+import com.somethingsimple.poplibs.exception.UserNotFoundException
 import io.reactivex.rxjava3.annotations.NonNull
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single

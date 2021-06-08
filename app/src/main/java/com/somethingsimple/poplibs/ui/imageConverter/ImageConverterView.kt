@@ -1,6 +1,6 @@
 package com.somethingsimple.poplibs.ui.imageConverter
 
-import android.net.Uri
+import com.somethingsimple.poplibs.data.model.ImageToConvert
 import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType
@@ -9,8 +9,10 @@ import moxy.viewstate.strategy.StateStrategyType
 interface ImageConverterView : MvpView {
 
     fun selectImage()
-    fun convert()
+    fun showConvertResult(image: ImageToConvert)
     fun showPermissionDenied()
-    fun showSelectedImage(uri: Uri)
+    fun showSelectedImage(image: ImageToConvert)
     fun showNoImageSelected()
+    fun showConvertProgress(percent: Int)
+    fun showConvertError(message: String)
 }
