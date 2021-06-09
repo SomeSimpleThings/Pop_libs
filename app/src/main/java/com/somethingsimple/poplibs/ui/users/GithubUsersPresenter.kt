@@ -1,8 +1,8 @@
 package com.somethingsimple.poplibs.ui.users
 
 import com.github.terrakok.cicerone.Router
-import com.somethingsimple.poplibs.data.UsersRepository
-import com.somethingsimple.poplibs.data.model.GithubUser
+import com.somethingsimple.poplibs.data.user.UsersRepository
+import com.somethingsimple.poplibs.data.user.model.GithubUser
 import com.somethingsimple.poplibs.exception.SomethingLoadingException
 import com.somethingsimple.poplibs.ui.IScreens
 import moxy.MvpPresenter

@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.somethingsimple.poplibs.PopLibsApplication.Navigation.router
-import com.somethingsimple.poplibs.data.UsersRepoFactory
-import com.somethingsimple.poplibs.data.model.GithubUser
+import com.somethingsimple.poplibs.data.user.UsersRepoFactory
+import com.somethingsimple.poplibs.data.user.model.GithubUser
 import com.somethingsimple.poplibs.databinding.FragmentUserDetailBinding
 import com.somethingsimple.poplibs.ui.common.BackButtonListener
 import moxy.MvpAppCompatFragment

@@ -1,11 +1,10 @@
-package com.somethingsimple.poplibs.data
+package com.somethingsimple.poplibs.data.converter
 
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Environment
-import com.somethingsimple.poplibs.data.model.ImageToConvert
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
