@@ -5,11 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.users.detail.UserDetailFragment">
 
-    <TextView
-        android:id="@+id/user_login"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        tools:text="user" />
+    <include layout="@layout/user_item" />
 
 </FrameLayout>

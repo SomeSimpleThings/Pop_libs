@@ -11,6 +11,7 @@ import com.somethingsimple.poplibs.data.user.UsersRepoFactory
 import com.somethingsimple.poplibs.databinding.FragmentGithubUsersBinding
 import com.somethingsimple.poplibs.ui.PopLibsAppScreens
 import com.somethingsimple.poplibs.ui.common.BackButtonListener
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
@@ -22,7 +23,8 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         GithubUsersPresenter(
             UsersRepoFactory.create(),
             router,
-            PopLibsAppScreens
+            PopLibsAppScreens,
+            AndroidSchedulers.mainThread()
         )
     }
 

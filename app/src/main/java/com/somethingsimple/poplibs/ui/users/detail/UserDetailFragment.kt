@@ -10,6 +10,7 @@ import com.somethingsimple.poplibs.data.user.UsersRepoFactory
 import com.somethingsimple.poplibs.data.user.model.GithubUser
 import com.somethingsimple.poplibs.databinding.FragmentUserDetailBinding
 import com.somethingsimple.poplibs.ui.common.BackButtonListener
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
@@ -18,7 +19,11 @@ private const val ARG_USER_PARCELABLE = "user_parcelable"
 class UserDetailFragment : MvpAppCompatFragment(), UserDetailView, BackButtonListener {
     private var viewBinding: FragmentUserDetailBinding? = null
     val presenter: UserDetailPresenter by moxyPresenter {
-        UserDetailPresenter(UsersRepoFactory.create(), router)
+        UserDetailPresenter(
+            UsersRepoFactory.create(),
+            router,
+            AndroidSchedulers.mainThread()
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

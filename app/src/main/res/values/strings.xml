@@ -13,4 +13,11 @@
     <string name="ok">OK</string>
     <string name="image_not_selected">Image not selected</string>
     <string name="please_select">Please, select an image in .jpg format</string>
+    <string name="company">Company:</string>
+    <string name="location">Location:</string>
+    <string name="repos">Repos</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
+    <string name="watchers">watchers</string>
+    <string name="open_issues">Open issues:</string>
 </resources>

@@ -1,6 +1,8 @@
-package com.somethingsimple.poplibs.data.user.model
+package com.somethingsimple.poplibs.data.repo.model
 
 import com.google.gson.annotations.SerializedName
+import com.somethingsimple.poplibs.data.user.model.GithubUser
+import com.somethingsimple.poplibs.data.user.model.License
 
 data class GithubRepo(
     @SerializedName("archive_url") val archiveUrl: String,

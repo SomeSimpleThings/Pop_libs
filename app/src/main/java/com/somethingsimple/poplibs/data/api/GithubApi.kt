@@ -1,6 +1,6 @@
-package com.somethingsimple.poplibs.data.user.api
+package com.somethingsimple.poplibs.data.api
 
-import com.somethingsimple.poplibs.data.user.model.GithubRepo
+import com.somethingsimple.poplibs.data.repo.model.GithubRepo
 import com.somethingsimple.poplibs.data.user.model.GithubUser
 import io.reactivex.rxjava3.core.Single
 import okhttp3.OkHttpClient
@@ -12,13 +12,16 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-const val GITHUB_API_URL = "https://api.github.com/"
+const val GITHUB_API_URL = "https://api.github.com"
 
 
 interface GithubApi {
 
     @GET("/users")
-    fun getUsers(@Query("since") since: Int? = null): Single<List<GithubUser>>
+    fun getUsers(
+        @Query("since") since: Int? = null,
+        @Query("per_page") perPage: Int? = 10
+    ): Single<List<GithubUser>>
 
     @GET("/users/{username}")
     fun getUserByUsername(@Path("username") username: String): Single<GithubUser>
