@@ -5,7 +5,7 @@ import com.github.terrakok.cicerone.androidx.FragmentScreen
 import com.somethingsimple.poplibs.data.user.model.GithubUser
 import com.somethingsimple.poplibs.ui.imageConverter.ImageConverterFragment
 import com.somethingsimple.poplibs.ui.users.UsersFragment
-import com.somethingsimple.poplibs.ui.users.detail.UserDetailFragment
+import com.somethingsimple.poplibs.ui.user.UserDetailFragment
 
 interface IScreens {
     fun users(): Screen

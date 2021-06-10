@@ -1,6 +1,6 @@
 package com.somethingsimple.poplibs.data.repo.datasource.local
 
-class CachedRepoDataSourceFactory {
+object CachedRepoDataSourceFactory {
     private val cacheUserDataSource: CachedRepoDataSource by lazy {
         CachedRepoDataSourceImpl()
     }
