@@ -33,4 +33,10 @@ class CachedRepoDataSourceImpl : CachedRepoDataSource {
                 ?: Single.error(RepoNotFoundException(reponame))
         }
 
+    override fun getRepoById(id: Int): Single<GithubRepo> =
+        Single.defer {
+            cache.firstOrNull { it.id == id }
+                ?.let { Single.just(it) }
+                ?: Single.error(RepoNotFoundException(id))
+        }
 }

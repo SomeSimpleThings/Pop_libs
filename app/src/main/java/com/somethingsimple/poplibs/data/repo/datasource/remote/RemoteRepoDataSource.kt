@@ -11,6 +11,8 @@ class RemoteRepoDataSource(private val api: GithubApi) : RepoDataSource {
 
 
     override fun getRepoByName(username: String, reponame: String): Single<GithubRepo> =
-        getRepoByName(username, reponame)
+        api.getRepoByName(username, reponame)
+
+    override fun getRepoById(id: Int): Single<GithubRepo> = api.getRepoById(id)
 
 }

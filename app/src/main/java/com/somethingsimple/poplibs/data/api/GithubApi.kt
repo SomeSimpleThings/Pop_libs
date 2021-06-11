@@ -35,6 +35,11 @@ interface GithubApi {
         @Path("reponame") reponame: String
     ): Single<GithubRepo>
 
+    @GET("/repositories/{id}")
+    fun getRepoById(
+        @Path("id") id: Int,
+    ): Single<GithubRepo>
+
 
     companion object Factory {
         fun create(): GithubApi {

@@ -22,4 +22,9 @@ class RepoRepositoryImpl(
             .getRepoByName(username, reponame)
             .subscribeOn(Schedulers.io())
 
+    override fun getRepoById(id: Int): Single<GithubRepo> =
+        remoteRepoDataSource
+            .getRepoById(id)
+            .subscribeOn(Schedulers.io())
+
 }

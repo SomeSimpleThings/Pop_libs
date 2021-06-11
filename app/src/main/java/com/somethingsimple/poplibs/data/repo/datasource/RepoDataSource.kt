@@ -6,4 +6,5 @@ import io.reactivex.rxjava3.core.Single
 interface RepoDataSource {
     fun getReposForUser(username: String): Single<List<GithubRepo>>
     fun getRepoByName(username: String, reponame: String): Single<GithubRepo>
+    fun getRepoById(id: Int): Single<GithubRepo>
 }

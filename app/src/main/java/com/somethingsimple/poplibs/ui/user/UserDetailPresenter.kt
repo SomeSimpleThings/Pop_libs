@@ -5,6 +5,7 @@ import com.somethingsimple.poplibs.data.repo.RepoRepository
 import com.somethingsimple.poplibs.data.repo.model.GithubRepo
 import com.somethingsimple.poplibs.data.user.UsersRepository
 import com.somethingsimple.poplibs.data.user.model.GithubUser
+import com.somethingsimple.poplibs.ui.IScreens
 import com.somethingsimple.poplibs.ui.repos.RepoItemView
 import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -15,6 +16,7 @@ class UserDetailPresenter(
     private val repoRepo: RepoRepository,
     private val router: Router,
     private val scheduler: Scheduler,
+    private val appScreens: IScreens,
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 ) :
     MvpPresenter<UserDetailView>() {
@@ -37,7 +39,10 @@ class UserDetailPresenter(
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.initRepoList()
-
+        reposListPresenter.itemClickListener = { itemView ->
+            val repoRepo = reposListPresenter.repos[itemView.pos]
+            router.navigateTo(appScreens.repoDetails(repoRepo.id))
+        }
     }
 
     fun showUser(user: GithubUser) {
@@ -63,7 +68,7 @@ class UserDetailPresenter(
                 .observeOn(scheduler)
                 .subscribe(
                     ::onReposFetched,
-                    ::onReposxFetchFailed
+                    ::onReposFetchFailed
                 )
         )
     }
@@ -74,8 +79,8 @@ class UserDetailPresenter(
         viewState.updateRepoList()
     }
 
-    private fun onReposxFetchFailed(throwable: Throwable?) {
-        TODO("Not yet implemented")
+    private fun onReposFetchFailed(throwable: Throwable?) {
+        //TODO("Not yet implemented")
     }
 
     override fun onDestroy() {

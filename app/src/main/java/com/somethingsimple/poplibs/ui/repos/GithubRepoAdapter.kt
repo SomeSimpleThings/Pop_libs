@@ -1,12 +1,10 @@
-package com.somethingsimple.poplibs.ui.user
+package com.somethingsimple.poplibs.ui.repos
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.somethingsimple.poplibs.data.repo.model.GithubRepo
 import com.somethingsimple.poplibs.databinding.RepoItemBinding
-import com.somethingsimple.poplibs.ui.repos.RepoItemView
-import com.somethingsimple.poplibs.ui.repos.RepoListPresenter
 
 class GithubRepoAdapter(val presenter: RepoListPresenter) :
     RecyclerView.Adapter<GithubRepoAdapter.ViewHolder>() {

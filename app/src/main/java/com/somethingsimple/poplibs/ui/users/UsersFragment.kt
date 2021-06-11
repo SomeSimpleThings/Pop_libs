@@ -67,7 +67,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     }
 
     override fun loadingError(text: String) {
-        TODO("Not yet implemented")
+//        TODO("Not yet implemented")
     }
 
     override fun backPressed() = presenter.backPressed()
