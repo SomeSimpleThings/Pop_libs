@@ -6,4 +6,6 @@ import io.reactivex.rxjava3.core.Single
 interface UserDataSource {
     fun getUsers(since: Int? = null): Single<List<GithubUser>>
     fun getUserByLogin(login: String): Single<GithubUser>
+    fun getUserById(id: Int): Single<GithubUser>
+
 }

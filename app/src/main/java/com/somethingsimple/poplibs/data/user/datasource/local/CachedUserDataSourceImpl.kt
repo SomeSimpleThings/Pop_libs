@@ -24,4 +24,10 @@ class CachedUserDataSourceImpl : CachedUserDataSource {
                 ?: Single.error(UserNotFoundException(login))
         }
 
+    override fun getUserById(id: Int): Single<GithubUser> =
+        Single.defer {
+            cache.firstOrNull { it.id == id }?.let { Single.just(it) }
+                ?: Single.error(UserNotFoundException("$id"))
+        }
+
 }

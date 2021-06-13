@@ -10,17 +10,12 @@ class RepoRepositoryImpl(
     private val remoteRepoDataSource: RepoDataSource,
     private val cacheRepoDataSource: CachedRepoDataSource,
 ) : RepoRepository {
-    override fun getReposForUser(username: String): Single<List<GithubRepo>> =
+    override fun getReposForUser(userId: Int): Single<List<GithubRepo>> =
         remoteRepoDataSource
-            .getReposForUser(username)
+            .getReposForUser(userId)
             .flatMap(cacheRepoDataSource::retain)
             .subscribeOn(Schedulers.io())
 
-
-    override fun getRepoByName(username: String, reponame: String): Single<GithubRepo> =
-        remoteRepoDataSource
-            .getRepoByName(username, reponame)
-            .subscribeOn(Schedulers.io())
 
     override fun getRepoById(id: Int): Single<GithubRepo> =
         remoteRepoDataSource

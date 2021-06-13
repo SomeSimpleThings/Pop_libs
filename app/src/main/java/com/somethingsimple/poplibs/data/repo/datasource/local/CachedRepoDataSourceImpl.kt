@@ -17,21 +17,14 @@ class CachedRepoDataSourceImpl : CachedRepoDataSource {
         }
 
 
-    override fun getReposForUser(username: String): Single<List<GithubRepo>> =
+    override fun getReposForUser(id: Int): Single<List<GithubRepo>> =
         Single
             .defer {
-                cache.filter { it.owner.login == username }
+                cache.filter { it.userId == id }
                     ?.let { Single.just(it) }
             }
-            ?: Single.error(UserNotFoundException(username))
+            ?: Single.error(UserNotFoundException("$id"))
 
-
-    override fun getRepoByName(username: String, reponame: String): Single<GithubRepo> =
-        Single.defer {
-            cache.firstOrNull { it.owner.login == username && it.name == reponame }
-                ?.let { Single.just(it) }
-                ?: Single.error(RepoNotFoundException(reponame))
-        }
 
     override fun getRepoById(id: Int): Single<GithubRepo> =
         Single.defer {

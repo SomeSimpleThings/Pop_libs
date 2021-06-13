@@ -30,4 +30,16 @@ class UserRepositoryImpl(
         )
             .subscribeOn(Schedulers.io())
 
+    override fun getUserById(id: Int): Observable<GithubUser> =
+        Observable.concat(
+            cacheUserDataSource
+                .getUserById(id)
+                .toObservable(),
+            remoteUserDataSource
+                .getUserById(id)
+                .toObservable()
+        )
+            .subscribeOn(Schedulers.io())
+
+
 }

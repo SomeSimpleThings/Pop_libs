@@ -37,8 +37,8 @@ class UserDetailFragment : MvpAppCompatFragment(), UserDetailView, BackButtonLis
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            val user: GithubUser? = it.getParcelable(ARG_USER_PARCELABLE)
-            user?.let { user1 -> presenter.showUser(user1) }
+            val userId: Int = it.getInt(ARG_USER_PARCELABLE)
+           presenter.showUser(userId)
         }
     }
 
@@ -59,9 +59,9 @@ class UserDetailFragment : MvpAppCompatFragment(), UserDetailView, BackButtonLis
 
     companion object {
         @JvmStatic
-        fun newInstance(user: GithubUser) = UserDetailFragment().apply {
+        fun newInstance(user: Int) = UserDetailFragment().apply {
             arguments = Bundle().apply {
-                putParcelable(ARG_USER_PARCELABLE, user)
+                putInt(ARG_USER_PARCELABLE, user)
             }
         }
     }
