@@ -12,7 +12,7 @@ import com.somethingsimple.poplibs.data.user.model.GithubUser
 @Database(entities = [GithubUser::class, GithubRepo::class], version = 1)
 abstract class GithubCacheDb : RoomDatabase() {
     abstract fun gitHubUserDao(): UserDao
-    abstract fun gitHubReDao(): RepoDao
+    abstract fun gitHubRepoDao(): RepoDao
 
     companion object {
         private const val DB_NAME = "gb_cache.db"

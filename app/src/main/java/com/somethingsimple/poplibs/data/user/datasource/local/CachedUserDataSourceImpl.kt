@@ -1,33 +1,36 @@
 package com.somethingsimple.poplibs.data.user.datasource.local
 
+import com.somethingsimple.poplibs.data.db.GithubCacheDb
+import com.somethingsimple.poplibs.data.db.user.UserDao
 import com.somethingsimple.poplibs.data.user.model.GithubUser
-import com.somethingsimple.poplibs.exception.UserNotFoundException
 import io.reactivex.rxjava3.core.Single
 
-class CachedUserDataSourceImpl : CachedUserDataSource {
+class CachedUserDataSourceImpl(cacheDb: GithubCacheDb) : CachedUserDataSource {
 
-    private val cache = mutableListOf<GithubUser>()
+    private val gitHubUserDao: UserDao =
+        cacheDb
+            .gitHubUserDao()
 
     override fun retain(users: List<GithubUser>): Single<List<GithubUser>> =
-        Single.fromCallable {
-            cache.clear()
-            cache.addAll(users)
-            cache
-        }
+        gitHubUserDao
+            .retain(users)
+            .andThen(getUsers())
+
+    override fun retain(user: GithubUser): Single<GithubUser> =
+        gitHubUserDao
+            .retain(user)
+            .andThen(getUserById(user.id))
 
     override fun getUsers(since: Int?): Single<List<GithubUser>> =
-        Single.just(cache)
+        gitHubUserDao.fetchUsers()
 
     override fun getUserByLogin(login: String): Single<GithubUser> =
-        Single.defer {
-            cache.firstOrNull { it.login == login }?.let { Single.just(it) }
-                ?: Single.error(UserNotFoundException(login))
-        }
+        gitHubUserDao
+            .fetchUserByLogin(login)
+//            .onErrorResumeNext(Single.error(RuntimeException("Нет такого пользователя")))
 
     override fun getUserById(id: Int): Single<GithubUser> =
-        Single.defer {
-            cache.firstOrNull { it.id == id }?.let { Single.just(it) }
-                ?: Single.error(UserNotFoundException("$id"))
-        }
+        gitHubUserDao
+            .fetchUserById(id)
 
 }

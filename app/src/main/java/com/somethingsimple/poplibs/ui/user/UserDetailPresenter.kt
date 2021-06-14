@@ -80,7 +80,7 @@ class UserDetailPresenter(
     }
 
     private fun onReposFetchFailed(throwable: Throwable?) {
-        //TODO("Not yet implemented")
+        TODO("Not yet implemented")
     }
 
     override fun onDestroy() {

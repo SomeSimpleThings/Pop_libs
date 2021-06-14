@@ -21,6 +21,6 @@ data class GithubRepo(
     @ColumnInfo @SerializedName("language") val language: String,
     @ColumnInfo @SerializedName("name") val name: String,
     @ColumnInfo @SerializedName("open_issues") val openIssues: Int,
-    @ColumnInfo val userId: Int,
+    @ColumnInfo var userId: Int,
     @ColumnInfo @SerializedName("watchers_count") val watchersCount: Int
 )

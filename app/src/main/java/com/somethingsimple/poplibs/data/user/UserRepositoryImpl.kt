@@ -16,7 +16,10 @@ class UserRepositoryImpl(
     override fun getUsers(): Single<List<GithubUser>> =
         remoteUserDataSource
             .getUsers()
-            .flatMap(cacheUserDataSource::retain)
+            .flatMap {
+                return@flatMap cacheUserDataSource
+                    .retain(it)
+            }
             .subscribeOn(Schedulers.io())
 
     override fun getUserByLogin(login: String): Observable<GithubUser> =

@@ -1,6 +1,7 @@
 package com.somethingsimple.poplibs.data.user.datasource
 
 import com.somethingsimple.poplibs.data.user.model.GithubUser
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 
 interface UserDataSource {

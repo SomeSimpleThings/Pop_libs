@@ -9,11 +9,11 @@ import io.reactivex.rxjava3.core.Single
 @Dao
 interface RepoDao {
 
-    @Query("SELECT * FROM GithubRepo ")
-    fun fetchUsers(): Observable<List<GithubRepo>>
+    @Query("SELECT * FROM GithubRepo WHERE userId = :userId")
+    fun fetchReposForUser(userId: Int): Single<List<GithubRepo>>
 
     @Query("SELECT * FROM GithubRepo WHERE id = :id ")
-    fun fetchUserByLogin(id: Int): Single<GithubRepo>
+    fun fetchRepoById(id: Int): Single<GithubRepo>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun retain(repos: List<GithubRepo>): Completable

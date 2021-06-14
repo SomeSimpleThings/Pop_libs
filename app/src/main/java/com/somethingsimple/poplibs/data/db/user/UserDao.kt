@@ -9,7 +9,7 @@ import io.reactivex.rxjava3.core.Single
 @Dao
 interface UserDao {
     @Query("SELECT * FROM GithubUser")
-    fun fetchUsers(): Observable<List<GithubUser>>
+    fun fetchUsers(): Single<List<GithubUser>>
 
     @Query("SELECT * FROM GithubUser WHERE id =:id")
     fun fetchUserById(id: Int): Single<GithubUser>
