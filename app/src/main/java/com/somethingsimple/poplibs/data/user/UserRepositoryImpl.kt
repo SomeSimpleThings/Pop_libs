@@ -14,13 +14,20 @@ class UserRepositoryImpl(
 
 
     override fun getUsers(): Single<List<GithubUser>> =
-        remoteUserDataSource
+        cacheUserDataSource
             .getUsers()
-            .flatMap {
-                return@flatMap cacheUserDataSource
-                    .retain(it)
-            }
+            .flatMap(::fetchFromCloudIfRequired)
             .subscribeOn(Schedulers.io())
+
+    private fun fetchFromCloudIfRequired(users: List<GithubUser>): Single<List<GithubUser>> =
+        if (users.isEmpty()) {
+            remoteUserDataSource
+                .getUsers()
+                .flatMap(cacheUserDataSource::retain)
+        } else {
+            Single.just(users)
+        }
+
 
     override fun getUserByLogin(login: String): Observable<GithubUser> =
         Observable.concat(

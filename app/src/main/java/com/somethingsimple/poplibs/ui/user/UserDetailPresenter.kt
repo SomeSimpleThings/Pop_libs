@@ -80,7 +80,7 @@ class UserDetailPresenter(
     }
 
     private fun onReposFetchFailed(throwable: Throwable?) {
-        TODO("Not yet implemented")
+        viewState.showUserNotFound()
     }
 
     override fun onDestroy() {

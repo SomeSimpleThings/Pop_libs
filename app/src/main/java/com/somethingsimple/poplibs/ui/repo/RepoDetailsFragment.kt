@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.somethingsimple.poplibs.PopLibsApplication.Navigation.router
-import com.somethingsimple.poplibs.R
 import com.somethingsimple.poplibs.data.repo.RepoRepositioryFactory
 import com.somethingsimple.poplibs.data.repo.model.GithubRepo
 import com.somethingsimple.poplibs.databinding.FragmentRepoDetailsBinding
@@ -41,12 +40,10 @@ class RepoDetailsFragment : MvpAppCompatFragment(), RepoView, BackButtonListener
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View =
         FragmentRepoDetailsBinding.inflate(inflater, container, false).apply {
             viewBinding = this
         }.root
-        return inflater.inflate(R.layout.fragment_repo_details, container, false)
-    }
 
     companion object {
         @JvmStatic
@@ -60,11 +57,11 @@ class RepoDetailsFragment : MvpAppCompatFragment(), RepoView, BackButtonListener
 
     override fun showRepoDetails(repo: GithubRepo) {
         viewBinding?.apply {
-            repoName.text = repo.name
-            description.text = repo.description
+            rname.text = repo.name
+            rdescription.text = repo.description
             language.text = repo.language
             issuesCount.text = repo.openIssues.toString()
-            watchersCount.text = repo.watchersCount.toString()
+            watchersText.text = repo.watchersCount.toString()
         }
     }
 

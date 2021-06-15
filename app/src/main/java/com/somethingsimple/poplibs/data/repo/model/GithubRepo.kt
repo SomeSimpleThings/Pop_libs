@@ -16,9 +16,9 @@ import com.somethingsimple.poplibs.data.user.model.GithubUser
     )]
 )
 data class GithubRepo(
-    @ColumnInfo @SerializedName("description") val description: String,
+    @ColumnInfo @SerializedName("description") val description: String?,
     @PrimaryKey @SerializedName("id") val id: Int,
-    @ColumnInfo @SerializedName("language") val language: String,
+    @ColumnInfo @SerializedName("language") val language: String?,
     @ColumnInfo @SerializedName("name") val name: String,
     @ColumnInfo @SerializedName("open_issues") val openIssues: Int,
     @ColumnInfo var userId: Int,
