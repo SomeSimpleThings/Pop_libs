@@ -10,4 +10,5 @@ interface UsersView : MvpView {
     fun init()
     fun updateList()
     fun addItemToList(position: Int)
+    fun loadingError(text: String)
 }

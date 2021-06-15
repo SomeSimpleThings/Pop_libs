@@ -14,7 +14,7 @@ class MainActivity : MvpAppCompatActivity(R.layout.activity_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        savedInstanceState ?: router.newRootScreen(PopLibsAppScreens.users())
+        savedInstanceState ?: router.newRootScreen(PopLibsAppScreens.imageConverter())
     }
 
     override fun onResumeFragments() {

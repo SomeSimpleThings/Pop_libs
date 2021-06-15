@@ -5,4 +5,12 @@
     <string name="counter_three">Counter 3</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="image_choose">Choose an image</string>
+    <string name="convert">convert</string>
+    <string name="cond_desc">cond_Desc</string>
+    <string name="perms_not_granted">Permissions not granted</string>
+    <string name="need_perms">Write storage needed</string>
+    <string name="ok">OK</string>
+    <string name="image_not_selected">Image not selected</string>
+    <string name="please_select">Please, select an image in .jpg format</string>
 </resources>
