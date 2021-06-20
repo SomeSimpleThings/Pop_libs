@@ -4,7 +4,6 @@ import com.somethingsimple.poplibs.data.repo.model.GithubRepo
 import io.reactivex.rxjava3.core.Single
 
 interface RepoDataSource {
-    fun getReposForUser(username: String): Single<List<GithubRepo>>
-    fun getRepoByName(username: String, reponame: String): Single<GithubRepo>
+    fun getReposForUser(userId: Int): Single<List<GithubRepo>>
     fun getRepoById(id: Int): Single<GithubRepo>
 }

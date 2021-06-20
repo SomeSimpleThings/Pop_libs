@@ -14,10 +14,20 @@ class UserRepositoryImpl(
 
 
     override fun getUsers(): Single<List<GithubUser>> =
-        remoteUserDataSource
+        cacheUserDataSource
             .getUsers()
-            .flatMap(cacheUserDataSource::retain)
+            .flatMap(::fetchFromCloudIfRequired)
             .subscribeOn(Schedulers.io())
+
+    private fun fetchFromCloudIfRequired(users: List<GithubUser>): Single<List<GithubUser>> =
+        if (users.isEmpty()) {
+            remoteUserDataSource
+                .getUsers()
+                .flatMap(cacheUserDataSource::retain)
+        } else {
+            Single.just(users)
+        }
+
 
     override fun getUserByLogin(login: String): Observable<GithubUser> =
         Observable.concat(
@@ -29,5 +39,17 @@ class UserRepositoryImpl(
                 .toObservable()
         )
             .subscribeOn(Schedulers.io())
+
+    override fun getUserById(id: Int): Observable<GithubUser> =
+        Observable.concat(
+            cacheUserDataSource
+                .getUserById(id)
+                .toObservable(),
+            remoteUserDataSource
+                .getUserById(id)
+                .toObservable()
+        )
+            .subscribeOn(Schedulers.io())
+
 
 }

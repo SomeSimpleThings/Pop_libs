@@ -45,9 +45,9 @@ class UserDetailPresenter(
         }
     }
 
-    fun showUser(user: GithubUser) {
+    fun showUser(userId: Int) {
         compositeDisposable.add(
-            usersRepo.getUserByLogin(user.login)
+            usersRepo.getUserById(userId)
                 .observeOn(scheduler)
                 .subscribe(
                     ::onUserFetched,
@@ -64,7 +64,7 @@ class UserDetailPresenter(
         viewState.showUser(user)
         compositeDisposable.add(
             repoRepo
-                .getReposForUser(user.login)
+                .getReposForUser(user.id)
                 .observeOn(scheduler)
                 .subscribe(
                     ::onReposFetched,
@@ -80,7 +80,7 @@ class UserDetailPresenter(
     }
 
     private fun onReposFetchFailed(throwable: Throwable?) {
-        //TODO("Not yet implemented")
+        viewState.showUserNotFound()
     }
 
     override fun onDestroy() {
