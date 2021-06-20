@@ -1,4 +1,4 @@
-package com.somethingsimple.poplibs.data.model
+package com.somethingsimple.poplibs.data.converter
 
 import android.graphics.Bitmap
 import android.net.Uri

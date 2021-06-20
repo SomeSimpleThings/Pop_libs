@@ -4,7 +4,7 @@ import android.graphics.Color.CYAN
 import android.graphics.Color.RED
 import android.os.Bundle
 import android.widget.Button
-import com.somethingsimple.poplibs.data.model.CounterModel
+import com.somethingsimple.poplibs.data.counter.model.CounterModel
 import com.somethingsimple.poplibs.databinding.ActivityCounterBinding
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter

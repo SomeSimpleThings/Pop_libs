@@ -1,8 +1,8 @@
 package com.somethingsimple.poplibs.ui.imageConverter
 
 import com.github.terrakok.cicerone.Router
-import com.somethingsimple.poplibs.data.ImageConverter
-import com.somethingsimple.poplibs.data.model.ImageToConvert
+import com.somethingsimple.poplibs.data.converter.ImageConverter
+import com.somethingsimple.poplibs.data.converter.ImageToConvert
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
 

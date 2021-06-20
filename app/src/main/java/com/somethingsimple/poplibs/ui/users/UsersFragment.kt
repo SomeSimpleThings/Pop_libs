@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.somethingsimple.poplibs.PopLibsApplication.Navigation.router
-import com.somethingsimple.poplibs.data.UsersRepoFactory
+import com.somethingsimple.poplibs.data.user.UsersRepoFactory
 import com.somethingsimple.poplibs.databinding.FragmentGithubUsersBinding
 import com.somethingsimple.poplibs.ui.PopLibsAppScreens
 import com.somethingsimple.poplibs.ui.common.BackButtonListener
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
 
@@ -22,7 +23,8 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         GithubUsersPresenter(
             UsersRepoFactory.create(),
             router,
-            PopLibsAppScreens
+            PopLibsAppScreens,
+            AndroidSchedulers.mainThread()
         )
     }
 
@@ -65,7 +67,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     }
 
     override fun loadingError(text: String) {
-        TODO("Not yet implemented")
+//        TODO("Not yet implemented")
     }
 
     override fun backPressed() = presenter.backPressed()
