@@ -6,30 +6,45 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.somethingsimple.poplibs.PopLibsApplication.Navigation.router
-import com.somethingsimple.poplibs.data.repo.RepoRepositioryFactory
-import com.somethingsimple.poplibs.data.user.UsersRepoFactory
+import com.github.terrakok.cicerone.Router
+import com.somethingsimple.poplibs.R
+import com.somethingsimple.poplibs.data.repo.RepoRepository
+import com.somethingsimple.poplibs.data.user.UsersRepository
 import com.somethingsimple.poplibs.data.user.model.GithubUser
 import com.somethingsimple.poplibs.databinding.FragmentUserDetailBinding
+import com.somethingsimple.poplibs.schedulers.Schedulers
 import com.somethingsimple.poplibs.ui.PopLibsAppScreens
 import com.somethingsimple.poplibs.ui.common.BackButtonListener
+import com.somethingsimple.poplibs.ui.common.BaseFragment
 import com.somethingsimple.poplibs.ui.repos.GithubRepoAdapter
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
+import javax.inject.Inject
 
 private const val ARG_USER_PARCELABLE = "user_parcelable"
 
-class UserDetailFragment : MvpAppCompatFragment(), UserDetailView, BackButtonListener {
+class UserDetailFragment : BaseFragment(R.layout.fragment_user_detail), UserDetailView,
+    BackButtonListener {
+
+    @Inject
+    lateinit var router: Router
+
+    @Inject
+    lateinit var userRepository: UsersRepository
+
+    @Inject
+    lateinit var repoRepository: RepoRepository
+
+    @Inject
+    lateinit var schedulers: Schedulers
 
     private var viewBinding: FragmentUserDetailBinding? = null
     private var adapter: GithubRepoAdapter? = null
     val presenter: UserDetailPresenter by moxyPresenter {
         UserDetailPresenter(
-            UsersRepoFactory.create(),
-            RepoRepositioryFactory.create(),
+            userRepository,
+            repoRepository,
             router,
-            AndroidSchedulers.mainThread(),
+            schedulers,
             PopLibsAppScreens
         )
     }
@@ -38,7 +53,7 @@ class UserDetailFragment : MvpAppCompatFragment(), UserDetailView, BackButtonLis
         super.onCreate(savedInstanceState)
         arguments?.let {
             val userId: Int = it.getInt(ARG_USER_PARCELABLE)
-           presenter.showUser(userId)
+            presenter.showUser(userId)
         }
     }
 

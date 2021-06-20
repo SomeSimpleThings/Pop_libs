@@ -1,16 +1,23 @@
 package com.somethingsimple.poplibs.ui
 
 import android.os.Bundle
+import com.github.terrakok.cicerone.NavigatorHolder
+import com.github.terrakok.cicerone.Router
 import com.github.terrakok.cicerone.androidx.AppNavigator
-import com.somethingsimple.poplibs.PopLibsApplication.Navigation.navigatorHolder
-import com.somethingsimple.poplibs.PopLibsApplication.Navigation.router
 import com.somethingsimple.poplibs.R
 import com.somethingsimple.poplibs.ui.common.BackButtonListener
-import moxy.MvpAppCompatActivity
+import com.somethingsimple.poplibs.ui.common.BaseActivity
+import javax.inject.Inject
 
-class MainActivity : MvpAppCompatActivity(R.layout.activity_main) {
+class MainActivity : BaseActivity(R.layout.activity_main) {
 
     private val navigator = AppNavigator(this, R.id.container)
+
+    @Inject
+    lateinit var router: Router
+
+    @Inject
+    lateinit var navigatorHolder: NavigatorHolder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

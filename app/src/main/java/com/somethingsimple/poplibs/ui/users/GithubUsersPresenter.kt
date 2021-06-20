@@ -4,8 +4,8 @@ import com.github.terrakok.cicerone.Router
 import com.somethingsimple.poplibs.data.user.UsersRepository
 import com.somethingsimple.poplibs.data.user.model.GithubUser
 import com.somethingsimple.poplibs.exception.SomethingLoadingException
+import com.somethingsimple.poplibs.schedulers.Schedulers
 import com.somethingsimple.poplibs.ui.IScreens
-import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
 
@@ -13,7 +13,7 @@ class GithubUsersPresenter(
     private val usersRepo: UsersRepository,
     private val router: Router,
     private val appScreens: IScreens,
-    private val scheduler: Scheduler,
+    private val scheduler: Schedulers,
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
 
@@ -46,7 +46,7 @@ class GithubUsersPresenter(
     private fun loadData() {
         compositeDisposable.add(
             usersRepo.getUsers()
-                .observeOn(scheduler)
+                .observeOn(scheduler.main())
                 .subscribe(
                     ::onUsersLoaded,
                     ::onUserLoadError
