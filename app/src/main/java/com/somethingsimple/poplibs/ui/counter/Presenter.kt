@@ -1,6 +1,6 @@
 package com.somethingsimple.poplibs.ui.counter
 
-import com.somethingsimple.poplibs.data.model.CounterModel
+import com.somethingsimple.poplibs.data.counter.model.CounterModel
 import moxy.MvpPresenter
 
 class Presenter(val model: CounterModel) : MvpPresenter<CounterView>() {

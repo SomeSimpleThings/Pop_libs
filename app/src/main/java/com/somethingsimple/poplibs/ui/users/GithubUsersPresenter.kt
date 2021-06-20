@@ -1,16 +1,21 @@
 package com.somethingsimple.poplibs.ui.users
 
 import com.github.terrakok.cicerone.Router
-import com.somethingsimple.poplibs.data.UsersRepository
-import com.somethingsimple.poplibs.data.model.GithubUser
+import com.somethingsimple.poplibs.data.user.UsersRepository
+import com.somethingsimple.poplibs.data.user.model.GithubUser
 import com.somethingsimple.poplibs.exception.SomethingLoadingException
 import com.somethingsimple.poplibs.ui.IScreens
+import io.reactivex.rxjava3.core.Scheduler
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
 
 class GithubUsersPresenter(
     private val usersRepo: UsersRepository,
     private val router: Router,
-    private val appScreens: IScreens
+    private val appScreens: IScreens,
+    private val scheduler: Scheduler,
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
+
 
 ) :
     MvpPresenter<UsersView>() {
@@ -21,10 +26,7 @@ class GithubUsersPresenter(
         override fun getCount() = users.size
 
         override fun bindView(view: UserItemView) {
-            users[view.pos].also {
-                view.setLogin(it.login)
-
-            }
+            view.bind(users[view.pos])
         }
     }
 
@@ -37,14 +39,18 @@ class GithubUsersPresenter(
 
         usersListPresenter.itemClickListener = { itemView ->
             val user = usersListPresenter.users[itemView.pos]
-            router.navigateTo(appScreens.userDetails(user))
+            router.navigateTo(appScreens.userDetails(user.id))
         }
     }
 
     private fun loadData() {
-        usersRepo.fetchUsers().subscribe(
-            ::onUserLoaded,
-            ::onUserLoadError
+        compositeDisposable.add(
+            usersRepo.getUsers()
+                .observeOn(scheduler)
+                .subscribe(
+                    ::onUsersLoaded,
+                    ::onUserLoadError
+                )
         )
     }
 
@@ -53,9 +59,15 @@ class GithubUsersPresenter(
             viewState.loadingError(throwable.localizedMessage)
     }
 
-    private fun onUserLoaded(users: List<GithubUser>) {
+    private fun onUsersLoaded(users: List<GithubUser>) {
+        usersListPresenter.users.clear()
         usersListPresenter.users.addAll(users)
         viewState.updateList()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        compositeDisposable.dispose()
     }
 
     fun backPressed(): Boolean {

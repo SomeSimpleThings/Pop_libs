@@ -13,8 +13,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import com.somethingsimple.poplibs.PopLibsApplication
 import com.somethingsimple.poplibs.R
-import com.somethingsimple.poplibs.data.ImageConverter
-import com.somethingsimple.poplibs.data.model.ImageToConvert
+import com.somethingsimple.poplibs.data.converter.ImageConverter
+import com.somethingsimple.poplibs.data.converter.ImageToConvert
 import com.somethingsimple.poplibs.databinding.FragmentImageConverterBinding
 import com.somethingsimple.poplibs.ui.common.BackButtonListener
 import moxy.MvpAppCompatFragment
