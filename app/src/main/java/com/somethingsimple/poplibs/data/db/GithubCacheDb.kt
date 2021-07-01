@@ -13,18 +13,4 @@ import com.somethingsimple.poplibs.data.user.model.GithubUser
 abstract class GithubCacheDb : RoomDatabase() {
     abstract fun gitHubUserDao(): UserDao
     abstract fun gitHubRepoDao(): RepoDao
-
-    companion object {
-        private const val DB_NAME = "gb_cache.db"
-        private var instance: GithubCacheDb? = null
-        fun getInstance() = instance
-            ?: throw RuntimeException("Database has not been created. Please call create(context)")
-
-        fun create(context: Context?) {
-            if (instance == null) {
-                instance = Room.databaseBuilder(context!!, GithubCacheDb::class.java, DB_NAME)
-                    .build()
-            }
-        }
-    }
 }

@@ -1,11 +1,14 @@
 package com.somethingsimple.poplibs
 
 import android.annotation.SuppressLint
-import android.app.Application
 import android.content.Context
 import com.github.terrakok.cicerone.Cicerone
+import com.somethingsimple.poplibs.di.DaggerPopLibsComponent
+import com.somethingsimple.poplibs.schedulers.DefaultSchedulers
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
 
-class PopLibsApplication : Application() {
+class PopLibsApplication : DaggerApplication() {
 
     @SuppressLint("StaticFieldLeak")
     object ContextHolder {
@@ -18,17 +21,21 @@ class PopLibsApplication : Application() {
         ContextHolder.context = applicationContext
     }
 
+    override fun applicationInjector(): AndroidInjector<PopLibsApplication> =
+        DaggerPopLibsComponent.builder()
+            .withContext(applicationContext)
+            .apply {
+                val cicerone = Cicerone.create()
+
+                withRouter(cicerone.router)
+                withNavigatorHolder(cicerone.getNavigatorHolder())
+            }
+            .withSchedulers(DefaultSchedulers)
+            .build()
+
+
     companion object {
         internal lateinit var INSTANCE: PopLibsApplication
             private set
-    }
-
-    object Navigation {
-
-        private val cicerone by lazy { Cicerone.create() }
-
-        val router get() = cicerone.router
-        val navigatorHolder get() = cicerone.getNavigatorHolder()
-
     }
 }

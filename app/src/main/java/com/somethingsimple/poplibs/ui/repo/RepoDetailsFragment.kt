@@ -5,25 +5,37 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.somethingsimple.poplibs.PopLibsApplication.Navigation.router
-import com.somethingsimple.poplibs.data.repo.RepoRepositioryFactory
+import com.github.terrakok.cicerone.Router
+import com.somethingsimple.poplibs.R
+import com.somethingsimple.poplibs.data.repo.RepoRepository
 import com.somethingsimple.poplibs.data.repo.model.GithubRepo
 import com.somethingsimple.poplibs.databinding.FragmentRepoDetailsBinding
+import com.somethingsimple.poplibs.schedulers.Schedulers
 import com.somethingsimple.poplibs.ui.common.BackButtonListener
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import moxy.MvpAppCompatFragment
+import com.somethingsimple.poplibs.ui.common.BaseFragment
 import moxy.ktx.moxyPresenter
+import javax.inject.Inject
 
 private const val REPO_ID_PARAM = "repo_id"
 
-class RepoDetailsFragment : MvpAppCompatFragment(), RepoView, BackButtonListener {
+class RepoDetailsFragment : BaseFragment(R.layout.fragment_repo_details), RepoView,
+    BackButtonListener {
+    @Inject
+    lateinit var router: Router
+
+    @Inject
+    lateinit var repoRepository: RepoRepository
+
+    @Inject
+    lateinit var schedulers: Schedulers
+
     private var param1: Int? = null
     private var viewBinding: FragmentRepoDetailsBinding? = null
     private val presenter: RepoPresenter by moxyPresenter {
         RepoPresenter(
-            RepoRepositioryFactory.create(),
+            repoRepository,
             router,
-            AndroidSchedulers.mainThread()
+            schedulers
         )
 
     }

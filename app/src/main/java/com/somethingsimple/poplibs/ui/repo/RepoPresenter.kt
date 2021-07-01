@@ -3,14 +3,14 @@ package com.somethingsimple.poplibs.ui.repo
 import com.github.terrakok.cicerone.Router
 import com.somethingsimple.poplibs.data.repo.RepoRepository
 import com.somethingsimple.poplibs.data.repo.model.GithubRepo
-import io.reactivex.rxjava3.core.Scheduler
+import com.somethingsimple.poplibs.schedulers.Schedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
 
 class RepoPresenter(
     private val repoRepository: RepoRepository,
     private val router: Router,
-    private val scheduler: Scheduler,
+    private val scheduler: Schedulers,
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 ) : MvpPresenter<RepoView>() {
 
@@ -18,7 +18,7 @@ class RepoPresenter(
         compositeDisposable.add(
             repoRepository
                 .getRepoById(id)
-                .observeOn(scheduler)
+                .observeOn(scheduler.main())
                 .subscribe(::onRepoLoaded, ::onLoadError)
         )
     }
