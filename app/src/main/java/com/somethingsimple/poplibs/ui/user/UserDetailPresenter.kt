@@ -5,9 +5,9 @@ import com.somethingsimple.poplibs.data.repo.RepoRepository
 import com.somethingsimple.poplibs.data.repo.model.GithubRepo
 import com.somethingsimple.poplibs.data.user.UsersRepository
 import com.somethingsimple.poplibs.data.user.model.GithubUser
+import com.somethingsimple.poplibs.schedulers.Schedulers
 import com.somethingsimple.poplibs.ui.IScreens
 import com.somethingsimple.poplibs.ui.repos.RepoItemView
-import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import moxy.MvpPresenter
 
@@ -15,7 +15,7 @@ class UserDetailPresenter(
     private val usersRepo: UsersRepository,
     private val repoRepo: RepoRepository,
     private val router: Router,
-    private val scheduler: Scheduler,
+    private val schedulers: Schedulers,
     private val appScreens: IScreens,
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 ) :
@@ -48,7 +48,7 @@ class UserDetailPresenter(
     fun showUser(userId: Int) {
         compositeDisposable.add(
             usersRepo.getUserById(userId)
-                .observeOn(scheduler)
+                .observeOn(schedulers.main())
                 .subscribe(
                     ::onUserFetched,
                     ::onFetchFailed
@@ -65,7 +65,7 @@ class UserDetailPresenter(
         compositeDisposable.add(
             repoRepo
                 .getReposForUser(user.id)
-                .observeOn(scheduler)
+                .observeOn(schedulers.main())
                 .subscribe(
                     ::onReposFetched,
                     ::onReposFetchFailed

@@ -6,25 +6,36 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.somethingsimple.poplibs.PopLibsApplication.Navigation.router
-import com.somethingsimple.poplibs.data.user.UsersRepoFactory
+import com.github.terrakok.cicerone.Router
+import com.somethingsimple.poplibs.R
+import com.somethingsimple.poplibs.data.user.UsersRepository
 import com.somethingsimple.poplibs.databinding.FragmentGithubUsersBinding
+import com.somethingsimple.poplibs.schedulers.Schedulers
 import com.somethingsimple.poplibs.ui.PopLibsAppScreens
 import com.somethingsimple.poplibs.ui.common.BackButtonListener
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import moxy.MvpAppCompatFragment
+import com.somethingsimple.poplibs.ui.common.BaseFragment
 import moxy.ktx.moxyPresenter
+import javax.inject.Inject
 
-class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
+class UsersFragment : BaseFragment(R.layout.fragment_github_users), UsersView, BackButtonListener {
+    @Inject
+    lateinit var router: Router
+
+    @Inject
+    lateinit var userRepository: UsersRepository
+
+    @Inject
+    lateinit var schedulers: Schedulers
+
 
     private var viewBinding: FragmentGithubUsersBinding? = null
     private var adapter: GithubUsersAdapter? = null
     private val presenter: GithubUsersPresenter by moxyPresenter {
         GithubUsersPresenter(
-            UsersRepoFactory.create(),
+            userRepository,
             router,
             PopLibsAppScreens,
-            AndroidSchedulers.mainThread()
+            schedulers
         )
     }
 
