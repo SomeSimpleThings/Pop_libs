@@ -1,2 +1,2 @@
 # Pop_libs
-Geekbrains Popular libs
+Popular libs
